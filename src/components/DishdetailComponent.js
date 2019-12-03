@@ -3,7 +3,6 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col, Label } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
-import { addComment } from '../redux/ActionCreators';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
@@ -32,7 +31,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -105,7 +104,7 @@ class CommentForm extends Component {
             );
     };
 
-    function RenderComments({comments, addComment, dishId}) {
+    function RenderComments({comments, postComment, dishId}) {
  
             const comm = comments.map((cmt) => {
                 return (
@@ -127,7 +126,7 @@ class CommentForm extends Component {
                     <ul className="list-unstyled">
                         {comm}
                     </ul>
-                    <CommentForm dishId={dishId} addComment={addComment} />
+                    <CommentForm dishId={dishId} postComment={postComment} />
                 </div>
             );  
 
@@ -172,7 +171,7 @@ class CommentForm extends Component {
                     <div className="row">
                         <RenderDish dish={props.dish}/>
                         <RenderComments comments={props.comments}
-                            addComment={props.addComment} 
+                            postComment={props.postComment} 
                             dishId={props.dish.id} />
                     </div>
                 </div>
