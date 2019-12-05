@@ -1,36 +1,25 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
+
 
 function About(props) {
 
-    const RenderLeader = (props) => {
-        const leader = props.leader
-        return(
-            <div className="container">
-                <Media className="mb-3">
-                    <Media className="mr-3">
-                        <img src={leader.image} />
-                    </Media>
-                    <Media body className="ml-3">
-                        <Media heading>
-                            {leader.name}
-                        </Media>
-                            <p>{leader.designation} </p>
-                            <p>{leader.description}</p>
-                    </Media>
-                </Media>
-            </div>
-        );
-    }
-
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <div>
-                <RenderLeader leader={leader} />
-            </div>
-        );
-    });
+    const leaders= props.leaders.map((leader) => { return (<RenderLeader leader= {leader} />); });
+	
+	function RenderLeader(props) {
+		return(
+			<div class='media'>
+				<img class='d-flex mr-3 img-thumbnail align-self-center' src={baseUrl + props.leader.image} alt='alberto' />
+				<div class='media-body'>
+					<h2>{props.leader.name}</h2>
+					<h4>{props.leader.designation}</h4>
+					<p class='d-none d-sm-block'> {props.leader.description} </p>
+				</div>
+			</div>
+		);
+	}
 
     
     return(
@@ -83,6 +72,7 @@ function About(props) {
                     </Card>
                 </div>
             </div>
+
             <div className="row row-content">
                 <div className="col-12 mb-3">
                     <h2>Corporate Leadership</h2>
@@ -93,6 +83,7 @@ function About(props) {
                     </Media>
                 </div>
             </div>
+
         </div>
     );
 }
