@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders, postFeedback } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import Checkout from './CheckoutComponent';
 
 
 const mapStateToProps = state => {
@@ -88,6 +89,7 @@ class Main extends Component {
                   <Route exact path='/menu' component={() => <Menu dishes={this.props.dishes} />} />
                   <Route path='/menu/:dishId' component={DishWithId} />
                   <Route exact path='/contactus' component={() => <Contact postFeedback={this.props.postFeedback} resetFeedbackForm={this.props.resetFeedbackForm} />} />
+                  <Route exact path='/checkout' component={Checkout} /> 
                   <Redirect to="/home" />
               </Switch>
             </CSSTransition>

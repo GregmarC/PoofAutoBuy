@@ -134,12 +134,12 @@ class CommentForm extends Component {
             return (
                 <div className="col-12 col-md-5 m-1">
                     <h4> Comments </h4>
-                    <Stagger in>
                         <ul className="list-unstyled">
-                            {comm}
+                            <Stagger in>
+                                {comm}
+                            </Stagger>
                         </ul>
                         <CommentForm dishId={dishId} postComment={postComment} />
-                    </Stagger>
                 </div>
             );
     }

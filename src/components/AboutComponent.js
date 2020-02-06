@@ -2,23 +2,51 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+import { Loading } from './LoadingComponent';
+
 
 
 function About(props) {
-
-    const leaders= props.leaders.map((leader) => { return (<RenderLeader leader= {leader} />); });
+    
+    const leaders= props.leaders.map((leader) => { return (<Fade in><RenderLeader leader= {leader} /></Fade>); });
 	
 	function RenderLeader(props) {
+        if (props.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (props.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else{
 		return(
-			<div class='media'>
-				<img class='d-flex mr-3 img-thumbnail align-self-center' src={baseUrl + props.leader.image} alt='alberto' />
-				<div class='media-body'>
-					<h2>{props.leader.name}</h2>
-					<h4>{props.leader.designation}</h4>
-					<p class='d-none d-sm-block'> {props.leader.description} </p>
-				</div>
-			</div>
-		);
+            <FadeTransform 
+                in 
+                transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'}}>
+                    <div class='media'>
+                        <img class='d-flex mr-3 img-thumbnail align-self-center' src={baseUrl + props.leader.image} alt='alberto' />
+                        <div class='media-body'>
+                            <h2>{props.leader.name}</h2>
+                            <h4>{props.leader.designation}</h4>
+                            <p class='d-none d-sm-block'> {props.leader.description} </p>
+                        </div>
+                    </div>
+            </FadeTransform>
+            );
+        }
 	}
 
     
@@ -78,9 +106,13 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                    <Media list>
-                        {leaders}
-                    </Media>
+                    
+                        <Media list>
+                            <Stagger in>
+                                {leaders}
+                            </Stagger>
+                        </Media>
+                    
                 </div>
             </div>
 
