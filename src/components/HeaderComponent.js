@@ -17,8 +17,6 @@ const Styles = styled.div`
         position: relative;
         z-index: -2;
     }
-
-    
 `;
 
 class Header extends Component {
